@@ -1,0 +1,14 @@
+C:\Agenda_telefonica\Agenda\bin\Debug\net8.0\Agenda.exe
+C:\Agenda_telefonica\Agenda\bin\Debug\net8.0\Agenda.deps.json
+C:\Agenda_telefonica\Agenda\bin\Debug\net8.0\Agenda.runtimeconfig.json
+C:\Agenda_telefonica\Agenda\bin\Debug\net8.0\Agenda.dll
+C:\Agenda_telefonica\Agenda\bin\Debug\net8.0\Agenda.pdb
+C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\Agenda.GeneratedMSBuildEditorConfig.editorconfig
+C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\Agenda.AssemblyInfoInputs.cache
+C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\Agenda.AssemblyInfo.cs
+C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\Agenda.csproj.CoreCompileInputs.cache
+C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\Agenda.dll
+C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\refint\Agenda.dll
+C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\Agenda.pdb
+C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\Agenda.genruntimeconfig.cache
+C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\ref\Agenda.dll
