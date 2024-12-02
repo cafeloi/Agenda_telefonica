@@ -1,0 +1,21 @@
+O programa terá um menu com as seguintes opções:
+1 - Cadastrar novos contatos
+2 - Editar a lista de contatos
+3 - Visualizar a lista de contatos
+4 - Organizar a ordem dos contatos
+5 - Pesquisar por nome ou indicador
+6 - Sair do programa
+___________________________
+Teremos as seguintes informações no cadastro de contato:
+
+*Nome da pessoa que deseja cadastrar
+*Um número de telefone por pessoa
+*E-mail
+*Data de aniversário
+___________________________
+Teremos um sistema de organização em ordem crescente de A-Z, e decrescente de Z-A.
+___________________________
+Desenvolveremos o sistema para pesquisa através do nome e pelo identificador.
+___________________________
+Criaremos uma base de dados onde todos esses dados serão armazenados, permitindo que o usuário possa editá-los.
+___________________________

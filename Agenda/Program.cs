@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 
 internal class Program
 {
@@ -28,34 +27,63 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        string path = @"C:\Agenda_telefonica\Lista.Database";
-        string lastIdPath = @"C:\Agenda_telefonica\id.management";
-
-
-        Dados Novo_contato = new Dados();
-        int lastId = LerUltimoId(lastIdPath);
-        Menu(path, lastIdPath, lastId, Novo_contato);
+        Menu();
     }
-    static void Menu(string path, string lastIdPath, int lastId, Dados Novo_contato = default)
+
+    static void Menu()
     {
+        string path = @"C:\Agenda_telefonica\.gitignore\Lista.Database";
+        string lastIdPath = @"C:\Agenda_telefonica\.gitignore\id.management";
+        int lastId = LerUltimoId(lastIdPath);
 
-        Console.WriteLine("Digite o numero de acordo com opção que deseja escolher");
-        Console.WriteLine("1-Cadastrar novos contatos");
-        Console.WriteLine("2-Editar a lista de contatos");
-        Console.WriteLine("3-Visualizar a lista de contatos");
-        Console.WriteLine("4-Organizar a ordem dos contatos por ordem Crescente de A-Z");
-        Console.WriteLine("5-Pesquisar por nome");
-        Console.WriteLine("6-Pesquisar por indicador");
-        Console.WriteLine("7-Sair do programa");
-        short opcao = short.Parse(Console.ReadLine());
-        switch (opcao)
+        while (true)
         {
-            case 1: Cadastro(path, lastIdPath, lastId, Novo_contato); break;
-        }
+            Console.ForegroundColor = ConsoleColor.Green;
 
+            string[] tela = {
+                "========================================",
+                "|       AGENDA TELEFÔNICA DIGITAL       |",
+                "========================================",
+                "|  1 - Cadastrar novos contatos        |",
+                "|  2 - Editar a lista de contatos      |",
+                "|  3 - Visualizar a lista de contatos  |",
+                "|  4 - Organizar contatos A-Z          |",
+                "|  5 - Pesquisar por nome              |",
+                "|  6 - Pesquisar por ID                |",
+                "|  7 - Sair                            |",
+                "========================================",
+                "       Escolha uma opção para continuar"
+            };
+
+            foreach (var linha in tela)
+            {
+                Console.WriteLine(linha);
+            }
+
+            Console.ResetColor();
+            Console.Write("\nDigite sua escolha: ");
+            if (!short.TryParse(Console.ReadLine(), out short opcao))
+            {
+                Console.WriteLine("Opção inválida! Pressione qualquer tecla para tentar novamente...");
+                Console.ReadKey();
+                continue;
+            }
+
+            switch (opcao)
+            {
+                case 1: Cadastro(path, lastIdPath, ref lastId); break;
+                case 3: MostrarLista(path); break;
+                case 5: PesquisarNome(path); break;
+                case 7: Console.WriteLine("Saindo do programa... Até mais!"); return;
+                default: Console.WriteLine("Opção inválida!"); break;
+            }
+        }
     }
+
     static int LerUltimoId(string lastIdPath)
     {
+
+
         if (File.Exists(lastIdPath))
         {
             string content = File.ReadAllText(lastIdPath).Trim();
@@ -63,51 +91,113 @@ internal class Program
             {
                 return lastId;
             }
+            else
+            {
+                return 0;
+            }
+        }
+        else
+        {
+            return 0;
         }
 
-
-        return 0;
     }
+
     static void AtualizarUltimoId(string lastIdPath, int lastId)
     {
-        //
+
+
         File.WriteAllText(lastIdPath, lastId.ToString());
+
+
     }
-    static void Cadastro(string path, string lastIdPath, int lastId, Dados Novo_contato = default)
+
+    static void Cadastro(string path, string lastIdPath, ref int lastId)
     {
-        Console.WriteLine("Digite o nome do contato que deseja cadastrar:");
+        Console.Clear();
+        Console.WriteLine("== CADASTRO DE NOVO CONTATO ==");
+
+        Dados Novo_contato = new Dados();
+        Console.Write("Digite o nome do contato: ");
         Novo_contato.Nome = Console.ReadLine();
-
-        Console.WriteLine("Digite o número de telefone do contato que deseja cadastrar:");
+        Console.Write("Digite o número de telefone: ");
         Novo_contato.Telefone = Console.ReadLine();
-
-        Console.WriteLine("Digite o telefone fixo do contato que deseja cadastrar:");
-        Novo_contato.Telefone_fixo = Console.ReadLine();
-
-        Console.WriteLine("Digite o e-mail do contato que deseja cadastrar:");
+        Console.Write("Digite o e-mail: ");
         Novo_contato.E_mail = Console.ReadLine();
-
-        Console.WriteLine("Digite a data de aniversário do contato que deseja cadastrar:");
+        Console.Write("Digite a data de aniversário: ");
         Novo_contato.Aniversario = Console.ReadLine();
 
-        Console.WriteLine("Digite o endereço do contato que deseja cadastrar:");
-        Novo_contato.Endereco = Console.ReadLine();
+        Novo_contato.Id = ++lastId;
 
-
-        Novo_contato.Id = lastId + 1;
 
 
         using (TextWriter tsw = new StreamWriter(path, true))
         {
-            tsw.WriteLine("Nome do contato -> " + Novo_contato.Nome);
-            tsw.WriteLine("Telefone do contato -> " + Novo_contato.Telefone);
-            tsw.WriteLine("Telefone fixo do contato -> " + Novo_contato.Telefone_fixo);
-            tsw.WriteLine("Email do contato -> " + Novo_contato.E_mail);
-            tsw.WriteLine("Data de aniversário -> " + Novo_contato.Aniversario);
-            tsw.WriteLine("Endereço do contato -> " + Novo_contato.Endereco);
-            tsw.WriteLine("ID -> " + Novo_contato.Id);
-            tsw.WriteLine("__________________");
+            tsw.WriteLine($"{Novo_contato.Id}|{Novo_contato.Nome}|{Novo_contato.Telefone}|{Novo_contato.E_mail}|{Novo_contato.Aniversario}");
         }
-        AtualizarUltimoId(lastIdPath, Novo_contato.Id);
+        AtualizarUltimoId(lastIdPath, lastId);
+        Console.WriteLine("\nContato cadastrado com sucesso!");
+
+    }
+
+    static void MostrarLista(string path)
+    {
+
+
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Blue;
+        if (File.Exists(path))
+        {
+            string text = File.ReadAllText(path);
+            Console.WriteLine(text);
+        }
+        else
+        {
+            Console.WriteLine("Nenhum contato encontrado!");
+        }
+    }
+    static void PesquisarNome(string path)
+    {
+        int linha;
+        Console.Clear();
+        Console.WriteLine("Digite o nome do contato");
+        string Localizar = Console.ReadLine();
+        using (StreamReader sr = new StreamReader(path))
+        {
+            string linhaAtual;
+            int numeroLinha = 0;
+            bool encontrado = false;
+
+            while ((linhaAtual = sr.ReadLine()) != null)
+            {
+                numeroLinha++;
+
+                // Verifica se o termo está na linha atual
+                if (linhaAtual.Contains(Localizar, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine($"Contato encontrado aqui estão suas informarçoes");
+                    Console.WriteLine(linhaAtual);
+                    encontrado = true;
+                }
+            }
+
+            if (!encontrado)
+            {
+                Console.WriteLine("Contato não encontrado.");
+            }
+            Menu();
+        }
+
+
+        Console.WriteLine("\nPressione qualquer tecla para continuar...");
+        Console.ReadKey();
+
+
+
+    }
+
+    static void PesquisarID()
+    {
+
     }
 }

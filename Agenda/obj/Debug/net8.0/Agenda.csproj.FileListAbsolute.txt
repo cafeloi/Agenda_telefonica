@@ -12,3 +12,4 @@ C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\refint\Agenda.dll
 C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\Agenda.pdb
 C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\Agenda.genruntimeconfig.cache
 C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\ref\Agenda.dll
+C:\Agenda_telefonica\Agenda\obj\Debug\net8.0\Agenda.sourcelink.json
